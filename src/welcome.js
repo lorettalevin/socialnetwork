@@ -9,7 +9,7 @@ export default function Welcome(props) {
         <Logo/>
         <HashRouter>
             <div>
-                <Route exact="exact" path="/" component={Registration}/>
+                <Route exact path="/" component={Registration}/>
                 <Route path="/login" component={Login}/>
             </div>
         </HashRouter>
