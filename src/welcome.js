@@ -1,17 +1,17 @@
 import React from 'react';
+import {HashRouter, Route} from 'react-router-dom';
 import Registration from './registration';
+import Login from "./login";
 import Logo from './logo';
 
 export default function Welcome(props) {
-    console.log("inside welcome component", props);
-    return (
-        <div>
-            I am the welcome page
-            <Registration />
-            <Logo />
-        </div>
-    )
-
+    return (<div id="welcome">
+        <Logo/>
+        <HashRouter>
+            <div>
+                <Route exact="exact" path="/" component={Registration}/>
+                <Route path="/login" component={Login}/>
+            </div>
+        </HashRouter>
+    </div>);
 }
-
-// if location.pathname = /

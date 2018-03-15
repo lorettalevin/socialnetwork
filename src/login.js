@@ -1,24 +1,24 @@
-import React from 'react'; //import for all components
+import React from 'react';
 import axios from './axios';
 import {Link} from 'react-router-dom';
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor() {
-        super();
+        super()
+
         this.state = {
-            first: '',
-            last: '',
             email: '',
             password: ''
         }
-        this.handleChange = this.handleChange.bind(this) //"this" can lose meaning like in Vue... error might look like "canot read property state of undefined"
+        this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+
     handleSubmit(e) {
         e.preventDefault();
-        axios.post('/registration', this.state).then(resp => {
+        axios.post('/login', this.state).then((resp) => {
             if (resp.data.success) {
-                location.replace('/');
+                location.replace('/login');
             } else {
                 this.setState({
                     error: true,
@@ -29,23 +29,23 @@ export default class Registration extends React.Component {
             }
         })
     }
+
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => console.log("new state", this.state)) //"state" is kinda similar to "data" in vue
+        })
     }
+
     render() {
-        const {first, last, email, password} = this.state
+        const {email, password} = this.state
         return (<div>
             {this.state.error && <div>{this.state.errorMessage}</div>}
             <form>
-                <input onChange={this.handleChange} name="first" type="text" placeholder="First Name"/>
-                <input onChange={this.handleChange} name="last" type="text" placeholder="Last Name"/>
                 <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
                 <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
                 <button onClick={this.handleSubmit}>SUBMIT</button>
             </form>
-            <Link to="/login">Already registered? Login here!</Link>
+            <Link to="/">Not registered yet? Register here!</Link>
         </div>)
     }
 }

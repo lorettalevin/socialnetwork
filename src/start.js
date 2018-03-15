@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Welcome from './welcome';
-import Registration from "./registration";
 import Logo from "./logo";
 
 let router;

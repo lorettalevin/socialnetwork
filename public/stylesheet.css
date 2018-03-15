@@ -1,0 +1,12 @@
+* {
+    background-color: rgb(210, 249, 244);
+}
+
+#welcome {
+    border: 5px solid red;
+}
+
+input {
+    /* border: 5px solid blue; */
+    padding: 10px;
+}
