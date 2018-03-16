@@ -33,6 +33,18 @@ function getUserInfo(id) {
         const q = `SELECT id, first, last, email, url FROM users WHERE id = $1`;
         const params = [id];
         db.query(q, params).then(results => {
+            resolve(results.rows[0]);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function updatePic(url, id) {
+    return new Promise(function(resolve, reject) {
+        const q = `UPDATE users SET url = $1 WHERE id = $2`;
+        const params = [url, id];
+        db.query(q, params).then(results => {
             resolve(results);
         }).catch(err => {
             reject(err);
@@ -43,5 +55,6 @@ function getUserInfo(id) {
 module.exports = {
     insertUserInfo,
     checkCredentials,
-    getUserInfo
+    getUserInfo,
+    updatePic
 };

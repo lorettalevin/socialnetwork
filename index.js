@@ -12,6 +12,7 @@ const multer = require('multer');
 const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require('./config/s3.js');
+const {s3Url} = require("./config/config.json");
 
 app.use(express.static(__dirname + "/public"));
 
@@ -55,16 +56,14 @@ const uploader = multer({
     }
 });
 
-app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
-    // If nothing went wrong the file is already in the uploads directory
-    if (req.file) {
-        db.addImagesToBrowser(req.body.title, req.body.description, req.body.username, req.file.filename).then(results => {
-            res.json({images: results[0]});
+app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
+    db.updatePic(req.file.filename, req.session.id).then(() => {
+        const url = s3Url + req.file.filename;
+        res.json({
+            success: true,
+            url
         });
-        //db.query - insert in title, description, username, etc in req.body (EXCEPT FILE!) --> only wanna store file name (req.file.filename). then do some returning (data of the image - ex. id, file name, etc). THEN DO A THEN (res.json back the data of the new image)
-    } else {
-        res.json({success: false});
-    }
+    });
 });
 
 function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
@@ -123,7 +122,6 @@ app.post('/login', (req, res) => {
                     req.session = {
                         id: results.rows[0].id
                     };
-                    console.log("we cool?", req.session);
                     res.json({success: true});
                 } else {
                     res.json({success: false, errorMessage: "Invalid password"});
@@ -139,23 +137,25 @@ app.post('/login', (req, res) => {
     }
 });
 
+
 app.get('/user', (req, res) => {
     db.getUserInfo(req.session.id).then(results => {
-        res.json({ data: results.rows[0] });
+        if (results.url) {
+            results.url = s3Url + results.url;
+        }
+        res.json({
+            id: results.id,
+            first: results.first,
+            last: results.last,
+            email: results.email,
+            url: results.url
+        });
     });
 });
 
-app.get('*', function(req, res) {
+app.get('*', function(req, res) {       //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });
-//
-// app.get('*', (req, res) => {
-//     if (!req.session.user) {
-//         res.redirect("/welcome");
-//     } else {
-//         res.sendFile(__dirname + '/index.html');
-//     }
-// });
 
 app.listen(8080, function() {
     console.log("I'm listening.");
