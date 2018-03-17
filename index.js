@@ -56,16 +56,6 @@ const uploader = multer({
     }
 });
 
-app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
-    db.updatePic(req.file.filename, req.session.id).then(() => {
-        const url = s3Url + req.file.filename;
-        res.json({
-            success: true,
-            url
-        });
-    });
-});
-
 function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
     return new Promise(function(resolve, reject) {
         bcrypt.compare(textEnteredInLoginForm, hashedPasswordFromDatabase, function(err, doesMatch) {
@@ -143,13 +133,28 @@ app.get('/user', (req, res) => {
         if (results.url) {
             results.url = s3Url + results.url;
         }
+        console.log("give us resultsss", results);
         res.json({
             id: results.id,
             first: results.first,
             last: results.last,
             email: results.email,
-            url: results.url
+            url: results.url,
+            bio: results.bio
         });
+    });
+});
+
+app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
+    db.updatePic(req.file.filename, req.session.id).then(() => {
+        const url = s3Url + req.file.filename;
+        res.json({success: true, url});
+    });
+});
+
+app.post('/bio', (req, res) => {
+    db.updateBio(req.body.bio, req.session.id).then(() => {
+        res.json({successs: true, bio: req.body.bio});
     });
 });
 
@@ -157,6 +162,6 @@ app.get('*', function(req, res) {       //catch all route --> you can tell by th
     res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(8080, function() {
+app.listen(8080, () => {
     console.log("I'm listening.");
 });
