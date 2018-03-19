@@ -2,11 +2,11 @@
     background-color: rgb(210, 249, 244);
 }
 
-#welcome {
-    border: 5px solid red;
+input {
+    padding: 10px;
 }
 
-input {
-    /* border: 5px solid blue; */
-    padding: 10px;
+#logo {
+    width: 200px;
+    height: 100px;
 }

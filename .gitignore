@@ -4,3 +4,5 @@ node_modules
 uploads
 lecture.js
 README.md
+images
+.DS_Store

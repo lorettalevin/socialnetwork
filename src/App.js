@@ -6,6 +6,7 @@ import ProfilePic from './profilepic'
 import Profile from './profile'
 import ProfilePicUpload from './profilepicupload'
 import BioUpload from './bioupload'
+import OtherProfile from './otherprofile'
 import Logo from './logo';
 import {BrowserRouter, Route} from 'react-router-dom';
 
@@ -17,7 +18,7 @@ export default class App extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: 'https://res.cloudinary.com/closebrace/image/upload/w_400/v1491315007/usericon_id76rb.png',
+            url: 'https://cdn.dribbble.com/users/5976/screenshots/2604551/clone_find_search_social_network_logo_design_symbol_mark_icon_by_alex_tass.jpg',
             showUploader: false,
             showBio: false
         };
@@ -71,10 +72,9 @@ export default class App extends React.Component {
         { showUploader && <ProfilePicUpload
                 setImage={this.setImage}
             /> }
-
-            { this.state.showBio && <BioUpload
-                        setBio={this.setBio}
-                    /> }
+        { this.state.showBio && <BioUpload
+                setBio={this.setBio}
+            /> }
             <BrowserRouter>
                 <div>
                     <Route
@@ -90,9 +90,9 @@ export default class App extends React.Component {
                             />
                         )}
                     />
+                    <Route exact path="/user/:id" component={OtherProfile} />
                 </div>
             </BrowserRouter>
-
         </div>)
     }
 }

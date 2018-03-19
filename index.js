@@ -133,7 +133,6 @@ app.get('/user', (req, res) => {
         if (results.url) {
             results.url = s3Url + results.url;
         }
-        console.log("give us resultsss", results);
         res.json({
             id: results.id,
             first: results.first,
@@ -143,6 +142,26 @@ app.get('/user', (req, res) => {
             bio: results.bio
         });
     });
+});
+
+app.get('/get-user/:id', (req, res) => {
+    if (req.session.id == req.params.id) {
+        res.json({ success: false })
+    } else {
+        db.getUserInfo(req.params.id).then(results => {
+            if (results.url) {
+                results.url = s3Url + results.url;
+            }
+            res.json({
+                id: results.id,
+                first: results.first,
+                last: results.last,
+                email: results.email,
+                url: results.url,
+                bio: results.bio
+            });
+        });
+    }
 });
 
 app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
