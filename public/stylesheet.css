@@ -6,7 +6,20 @@ input {
     padding: 10px;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
 #logo {
-    width: 200px;
-    height: 100px;
+    width: 575px;
+    height: 575px;
+}
+
+#registration-container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 10px;
 }

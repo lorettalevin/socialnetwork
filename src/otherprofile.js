@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from './axios';
+import FriendRequestButton from './friendrequestbutton'
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -9,30 +10,43 @@ export default class OtherProfile extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: 'https://cdn.dribbble.com/users/5976/screenshots/2604551/clone_find_search_social_network_logo_design_symbol_mark_icon_by_alex_tass.jpg',
+            url: './images/default.jpg',
             bio: 'Default Bio'
         };
+        this.updateStatus = this.updateStatus.bind(this)
     }
     componentDidMount() {
         axios.get(`/get-user/${this.props.match.params.id}`).then(resp => {
             if (resp.data.success === false) {
                 return this.props.history.push('/')
             } else {
-                const {id, first, last, email, url, bio} = resp.data;
+                console.log("resp.data", resp.data);
+                const {id, first, last, email, url, bio, recipient_id, sender_id, status} = resp.data;
                 this.setState({
                     id,
                     first,
                     last,
                     email,
                     url: url || this.state.url,
-                    bio: bio || this.state.bio
+                    bio: bio || this.state.bio,
+                    recipient_id,
+                    sender_id,
+                    status
                 })
             }
+        }).catch(err => {
+            console.log("There was an error in getUser", err);
         })
     }
 
+    updateStatus(newStatus){
+        this.setState({
+            status: newStatus
+        });
+    }
+
     render(){
-        const {id, first, last, email, url, bio} = this.state
+        const {id, first, last, email, url, bio, recipient_id, sender_id, status} = this.state
         return(
             <div>
                 <p>
@@ -40,6 +54,13 @@ export default class OtherProfile extends React.Component {
                 </p>
                 <img src={url} alt="Profile Picture"/>
                 <p>{bio}</p>
+                <FriendRequestButton
+                    recipient_id={recipient_id}
+                    sender_id={sender_id}
+                    status={status}
+                    match={this.props.match}
+                    updateStatus={this.updateStatus}
+                />
             </div>
         )
     }

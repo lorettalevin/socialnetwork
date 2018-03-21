@@ -38,13 +38,15 @@ export default class Registration extends React.Component {
         const {first, last, email, password} = this.state
         return (<div>
             {this.state.error && <div>{this.state.errorMessage}</div>}
-            <form>
-                <input onChange={this.handleChange} name="first" type="text" placeholder="First Name"/>
-                <input onChange={this.handleChange} name="last" type="text" placeholder="Last Name"/>
-                <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
-                <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
-                <button onClick={this.handleSubmit}>SUBMIT</button>
-            </form>
+            <div id="registration-container">
+                <form>
+                    <input onChange={this.handleChange} name="first" type="text" placeholder="First Name"/>
+                    <input onChange={this.handleChange} name="last" type="text" placeholder="Last Name"/>
+                    <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
+                    <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
+                    <button onClick={this.handleSubmit}>SUBMIT</button>
+                </form>
+            </div>
             <Link to="/login">Already registered? Login here!</Link>
         </div>)
     }

@@ -18,7 +18,7 @@ export default class App extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: 'https://cdn.dribbble.com/users/5976/screenshots/2604551/clone_find_search_social_network_logo_design_symbol_mark_icon_by_alex_tass.jpg',
+            url: './images/default.jpg',
             showUploader: false,
             showBio: false
         };

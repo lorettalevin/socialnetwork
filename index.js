@@ -146,20 +146,28 @@ app.get('/user', (req, res) => {
 
 app.get('/get-user/:id', (req, res) => {
     if (req.session.id == req.params.id) {
-        res.json({ success: false })
+        res.json({ success: false });
     } else {
-        db.getUserInfo(req.params.id).then(results => {
-            if (results.url) {
-                results.url = s3Url + results.url;
+        Promise.all([
+            db.getUserInfo(req.params.id),
+            db.getStatus(req.session.id, req.params.id)
+        ]).then(([otherUserInfo, friendshipInfo]) => {
+            if (otherUserInfo.url) {
+                otherUserInfo.url = s3Url + otherUserInfo.url;
             }
             res.json({
-                id: results.id,
-                first: results.first,
-                last: results.last,
-                email: results.email,
-                url: results.url,
-                bio: results.bio
+                id: otherUserInfo.id,
+                first: otherUserInfo.first,
+                last: otherUserInfo.last,
+                email: otherUserInfo.email,
+                url: otherUserInfo.url,
+                bio: otherUserInfo.bio,
+                sender_id: (friendshipInfo && friendshipInfo.sender_id) || null,
+                recipient_id: (friendshipInfo && friendshipInfo.recipient_id) || null,
+                status: (friendshipInfo && friendshipInfo.status) || 0
             });
+        }).catch(err => {
+            console.log("error in getUser", err);
         });
     }
 });
@@ -174,6 +182,52 @@ app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => 
 app.post('/bio', (req, res) => {
     db.updateBio(req.body.bio, req.session.id).then(() => {
         res.json({successs: true, bio: req.body.bio});
+    });
+});
+
+app.post(`/sendfriendrequest/:recipient_id`, (req, res) => {
+    if (req.body.status == 0) {
+        db.makeFriend(req.session.id, req.params.recipient_id, 1).then(results => {
+            res.json({
+                success: true,
+                status: results.rows[0].status
+            });
+        });
+    } else {
+        db.updateRequest(1, req.params.recipient_id, req.session.id).then(results => {
+            res.json({
+                success: true,
+                status: results.status
+            });
+        });
+    }
+    
+});
+
+app.post(`/cancelfriendrequest/:recipient_id`, (req, res) => {
+    db.updateRequest(5, req.params.recipient_id, req.session.id).then(results => {
+        res.json({
+            success: true,
+            status: results.status
+        });
+    });
+});
+
+app.post(`/acceptfriendrequest/:recipient_id`, (req, res) => {
+    db.updateRequest(2, req.params.recipient_id, req.session.id).then(results => {
+        res.json({
+            success: true,
+            status: results.status
+        });
+    });
+});
+
+app.post(`/terminatefriendship/:recipient_id`, (req, res) => {
+    db.updateRequest(4, req.params.recipient_id, req.session.id).then(results => {
+        res.json({
+            success: true,
+            status: results.status
+        });
     });
 });
 
