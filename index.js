@@ -13,6 +13,8 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require('./config/s3.js');
 const {s3Url} = require("./config/config.json");
+// const server = require('http').Server(app);
+// const io = require('socket.io')(server, { origins: 'localhost:8080' });
 
 app.use(express.static(__dirname + "/public"));
 
@@ -201,7 +203,6 @@ app.post(`/sendfriendrequest/:recipient_id`, (req, res) => {
             });
         });
     }
-    
 });
 
 app.post(`/cancelfriendrequest/:recipient_id`, (req, res) => {
@@ -226,12 +227,25 @@ app.post(`/terminatefriendship/:recipient_id`, (req, res) => {
     db.updateRequest(4, req.params.recipient_id, req.session.id).then(results => {
         res.json({
             success: true,
-            status: results.status
+            status: results.status,
+            recipient_id: results.recipient_id
         });
     });
 });
 
-app.get('*', function(req, res) {       //catch all route --> you can tell by the star
+app.get('/getfriends', (req, res) => {
+    db.getFriends(req.session.id).then(results => {
+        if (results.url) {
+            results.url = s3Url + results.url;
+        }
+        res.json({
+            success: true,
+            friends: results
+        });
+    });
+});
+
+app.get('*', function(req, res) {   //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });
 

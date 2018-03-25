@@ -2,6 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Welcome from './welcome';
 import App from "./app";
+import { HashRouter, Route, Link, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
+import reducer from './reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
+// import * as io from 'socket.io-client';
 
 let router;
 
@@ -11,4 +18,14 @@ if (location.pathname == '/welcome') {
     router = <App />
 }
 
-ReactDOM.render(router, document.querySelector('main'));
+export const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
+
+const elem = (
+    <Provider store={store}>
+        { router }
+    </Provider>
+);
+
+// const socket = io.connect();
+
+ReactDOM.render(elem, document.querySelector('main'));

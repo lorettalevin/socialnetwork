@@ -127,6 +127,25 @@ function updateRequest(status, recipientID, senderID) {
     });
 }
 
+function getFriends(userID) {
+    return new Promise((resolve, reject) => {
+        const q = `
+        SELECT users.id, first, last, url, status
+        FROM friendships
+        JOIN users
+        ON (status = 1 AND recipient_id = $1 AND sender_id = users.id)
+        OR (status = 2 AND recipient_id = $1 AND sender_id = users.id)
+        OR (status = 2 AND sender_id = $1 AND recipient_id = users.id)
+        `;
+        const params = [userID];
+        db.query(q, params).then(results => {
+            resolve(results.rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
     insertUserInfo,
     checkCredentials,
@@ -135,5 +154,6 @@ module.exports = {
     updateBio,
     makeFriend,
     getStatus,
-    updateRequest
+    updateRequest,
+    getFriends
 };
