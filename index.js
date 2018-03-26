@@ -13,8 +13,9 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require('./config/s3.js');
 const {s3Url} = require("./config/config.json");
-// const server = require('http').Server(app);
-// const io = require('socket.io')(server, { origins: 'localhost:8080' });
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: 'localhost:8080' });
+// const io = require('socket.io')(server);
 
 app.use(express.static(__dirname + "/public"));
 
@@ -28,20 +29,15 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-app.use(cookieSession({
-    secret: "a really hard to guess secret",
-    maxAge: 1000 * 60 * 60 * 24 * 14
-}));
+const cookieSessionMiddleware = cookieSession({
+    secret: 'a very secretive secret',
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
 
-// const cookieSessionMiddleware = cookieSession({
-//     secret: 'a very secretive secret',
-//     maxAge: 1000 * 60 * 60 * 24 * 90
-// });
-
-// app.use(cookieSessionMiddleware);
-// io.use(function(socket, next) {
-//     cookieSessionMiddleware(socket.request, socket.request.res, next);
-// });
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csrf());
 
@@ -95,6 +91,52 @@ function hashPassword(plainTextPassword) {
         });
     });
 }
+
+
+
+// STARTING SOCKET.IO
+
+let onlineUsers = [], messages = [];
+
+const getOnlineUsers = () => {
+    let ids = onlineUsers.map(user => user.userId); //map returns a new array & iterates over each item in an array like the forEach (except forEach doesn't return a new array)
+
+    ids = ids.filter((id, i) => ids.indexOf(id) == i); //filter iterates thru each item of an array just like map does.
+    return db.getUsersByIds(ids);
+};
+
+io.on('connection', function(socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+    if (!socket.request.session || !socket.request.session.id) {
+        return socket.disconnect(true);
+    }
+
+    socket.on('disconnect', function() {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+        onlineUsers = onlineUsers.filter(user => {
+            return user.userId != userId;
+        });
+        socket.broadcast.emit('userLeft', userId);
+    });
+
+    const userId = socket.request.session.id;
+
+    onlineUsers.push({
+        userId,
+        socketId: socket.id
+    });
+
+    getOnlineUsers().then(results => {
+        socket.emit('onlineUsers', results.rows);
+    });
+});
+
+
+
+
+// END OF SOCKET.IO
+
+
 
 app.post('/registration', (req, res) => {
     if (!req.body.first || !req.body.last || !req.body.email || !req.body.password) {
@@ -153,6 +195,8 @@ app.get('/user', (req, res) => {
             url: results.url,
             bio: results.bio
         });
+    }).catch(err => {
+        console.log("there was an error in /user", err);
     });
 });
 
@@ -281,6 +325,6 @@ app.get('*', function(req, res) {   //catch all route --> you can tell by the st
     res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(8080, () => {
+server.listen(8080, () => {
     console.log("I'm listening.");
 });

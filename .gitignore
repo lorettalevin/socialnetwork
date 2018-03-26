@@ -8,7 +8,4 @@ pic_links
 icons.jpg
 .DS_Store
 lecture.socket.js
-
-
-
-socket.js
+.gitignore

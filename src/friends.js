@@ -25,14 +25,14 @@ class Friends extends React.Component {
             <div key={id}>
                 <p>{pending.first} {pending.last}</p>
                 <Link to={`/user/${pending.id}`}><img src='{pending.url}' alt="Profile Pic"/></Link>
-                <button onClick={() => {this.props.dispatch(acceptFriends(pending.id))}}>Accept</button>
+                <button className="friend-button" onClick={() => {this.props.dispatch(acceptFriends(pending.id))}}>Accept</button>
             </div>
         ))
         const acceptedFriendsList = this.props.acceptedFriends.map((accepted, id) => (
             <div key={id}>
                 <p>{accepted.first} {accepted.last}</p>
                 <Link to={`/user/${accepted.id}`}><img src='{accepted.url}' alt="Profile Pic"/></Link>
-                <button onClick={() => {this.props.dispatch(terminateFriends(accepted.id))}}>Unfriend</button>
+                <button className="friend-button" onClick={() => {this.props.dispatch(terminateFriends(accepted.id))}}>Unfriend</button>
             </div>
         ))
 

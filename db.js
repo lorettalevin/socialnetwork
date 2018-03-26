@@ -146,6 +146,11 @@ function getFriends(userID) {
     });
 }
 
+function getUsersByIds(arrayOfIds) {
+    const query = `SELECT * FROM users WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]);
+}
+
 module.exports = {
     insertUserInfo,
     checkCredentials,
@@ -155,5 +160,6 @@ module.exports = {
     makeFriend,
     getStatus,
     updateRequest,
-    getFriends
+    getFriends,
+    getUsersByIds
 };

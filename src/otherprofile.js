@@ -20,7 +20,6 @@ export default class OtherProfile extends React.Component {
             if (resp.data.success === false) {
                 return this.props.history.push('/')
             } else {
-                console.log("resp.data", resp.data);
                 const {id, first, last, email, url, bio, recipient_id, sender_id, status} = resp.data;
                 this.setState({
                     id,
@@ -49,9 +48,7 @@ export default class OtherProfile extends React.Component {
         const {id, first, last, email, url, bio, recipient_id, sender_id, status} = this.state
         return(
             <div>
-                <p>
-                    Hello {first} {last} at {email}!
-                </p>
+                <p>Hello {first} {last} at {email}!</p>
                 <img src={url} alt="Profile Picture"/>
                 <p>{bio}</p>
                 <FriendRequestButton

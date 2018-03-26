@@ -28,3 +28,28 @@ export function terminateFriends(recipient_id) {
         };
     });
 }
+
+
+
+//SOCKET IO
+
+export function onlineUsers(users) {
+    return {
+        type: 'ONLINE_USERS',
+        users
+    };
+}
+
+export function userJoined(userId) {
+    return {
+        type: 'USER_JOINED',
+        userId
+    };
+}
+
+export function userLeft(userId) {
+    return {
+        type: 'USER_LEFT',
+        userId
+    };
+}

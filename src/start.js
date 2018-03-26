@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import reducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import * as io from 'socket.io-client';
+import { initSocket } from "./socket"
 
 let router;
 
@@ -20,12 +20,12 @@ if (location.pathname == '/welcome') {
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
+initSocket(store)
+
 const elem = (
     <Provider store={store}>
         { router }
     </Provider>
 );
-
-// const socket = io.connect();
 
 ReactDOM.render(elem, document.querySelector('main'));
