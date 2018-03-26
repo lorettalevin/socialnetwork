@@ -33,6 +33,16 @@ app.use(cookieSession({
     maxAge: 1000 * 60 * 60 * 24 * 14
 }));
 
+// const cookieSessionMiddleware = cookieSession({
+//     secret: 'a very secretive secret',
+//     maxAge: 1000 * 60 * 60 * 24 * 90
+// });
+
+// app.use(cookieSessionMiddleware);
+// io.use(function(socket, next) {
+//     cookieSessionMiddleware(socket.request, socket.request.res, next);
+// });
+
 app.use(csrf());
 
 app.use(function(req, res, next) {
@@ -247,6 +257,9 @@ app.get('/getfriends', (req, res) => {
 
 
 
+
+
+//DON'T TOUCH THIS SECTION!
 
 app.get('/welcome', (req, res) => {
     if (req.session.id) {

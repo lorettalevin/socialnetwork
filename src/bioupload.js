@@ -27,6 +27,7 @@ export default class BioUpload extends React.Component {
     render() {
         return (
             <div>
+                <h1 id="about-me">About Me!</h1>
                 <form>
                     <textarea onChange={this.handleChange} name="newBio"></textarea>
                     <button className="submit-button" onClick={this.handleSubmit}>SUBMIT</button>

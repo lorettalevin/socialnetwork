@@ -16,6 +16,11 @@ form {
     flex-direction: column;
 }
 
+textarea {
+    width: 500px;
+    height: 500px;
+}
+
 ::placeholder {
     text-align: center;
 }
@@ -77,14 +82,19 @@ form {
 
 .link {
     color: blue;
-    font-size: 18px;
+    font-size: 15px;
     justify-content: center;
     text-align: center;
     font-family: arial;
+    text-decoration: none;
 }
 
 #welcome-user {
     font-family: 'Monoton', cursive;
     font-size: 50px;
     color: teal;
+}
+
+.wtf {
+    border: 10px solid red;
 }
