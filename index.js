@@ -245,6 +245,25 @@ app.get('/getfriends', (req, res) => {
     });
 });
 
+
+
+
+app.get('/welcome', (req, res) => {
+    if (req.session.id) {
+        res.redirect('/');
+    } else {
+        res.sendFile(__dirname + '/index.html');
+    }
+});
+
+app.get('/', (req, res) => {
+    if (!req.session.id) {
+        res.redirect('/welcome');
+    } else {
+        res.sendFile(__dirname + '/index.html');
+    }
+});
+
 app.get('*', function(req, res) {   //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });

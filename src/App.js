@@ -19,7 +19,7 @@ export default class App extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: './images/default.jpg',
+            url: './images/default.png',
             showUploader: false,
             showBio: false
         };
@@ -63,7 +63,7 @@ export default class App extends React.Component {
         const {first, last, url, email, bio, showUploader} = this.state
         return (<div>
             <Logo/>
-            <p>Welcome {first} at {email}</p>
+            <p id="welcome-user">Welcome {first} {last}!</p>
             <ProfilePic
                 first={first}
                 last={last}

@@ -29,7 +29,7 @@ export default class BioUpload extends React.Component {
             <div>
                 <form>
                     <textarea onChange={this.handleChange} name="newBio"></textarea>
-                    <button onClick={this.handleSubmit}>SUBMIT</button>
+                    <button className="submit-button" onClick={this.handleSubmit}>SUBMIT</button>
                 </form>
             </div>
         )

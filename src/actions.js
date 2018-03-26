@@ -8,12 +8,3 @@ export function getFriends() {
         };
     });
 }
-
-// export function terminateFriendship(recipient_id) {
-//     return axios.post(`/terminatefriendship/${recipient_id}`).then(resp => {
-//         return {
-//             type: 'END_FRIENDS',
-//             recipient_id: resp.data.recipient_id
-//         };
-//     });
-// }

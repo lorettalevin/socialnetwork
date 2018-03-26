@@ -26,23 +26,23 @@ class Friends extends React.Component {
         }
         const pendingFriendsList = this.props.pendingFriends.map(pending => (
             <div>
-                <h1>{pending.first} {pending.last}</h1>
+                <p>{pending.first} {pending.last}</p>
                 <Link to={`/user/${pending.id}`}><img src='{pending.url}' alt="Profile Pic"/></Link>
-                <button onClick={this.props.dispatch(acceptedFriendsList)}>Accepted</button>
+                {/*<button onClick={this.props.dispatch(acceptedFriendsList)}>Accepted</button>*/}
             </div>
         ))
         const acceptedFriendsList = this.props.acceptedFriends.map(accepted => (
             <div>
-                <h1>{accepted.first} {accepted.last}</h1>
+                <p>{accepted.first} {accepted.last}</p>
                 <Link to={`/user/${accepted.id}`}><img src='{accepted.url}' alt="Profile Pic"/></Link>
-                <button onClick={this.props.dispatch(pendingFriendsList)}>Unfriend</button>
+                {/*<button onClick={this.props.dispatch(pendingFriendsList)}>Unfriend</button>*/}
             </div>
         ))
 
         return (<div>
             <div>
-                <h1>Pending Friends: {pendingFriendsList}</h1>
-                <h1>Accepted Friends: {acceptedFriendsList}</h1>
+                <p>Pending Friends: {pendingFriendsList}</p>
+                <p>Accepted Friends: {acceptedFriendsList}</p>
             </div>
         </div>)
     }
