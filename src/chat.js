@@ -1,10 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { emitChatMessage } from './socket'
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
     }
+
+    enterChatMessage(e) {
+        if (e.keyCode == 13) {
+            let message = e.target.value
+            e.target.value = ''
+            emitChatMessage(message)
+            e.preventDefault()
+            }
+        }
 
     renderChats() {
         if(!this.props.chats){ //matches with left side of mapStateToProps key
@@ -22,11 +32,10 @@ class Chat extends React.Component {
     render() {
         return (
             <div>
-                <h1>CHATBOX</h1>
+                <p className="headline">Chat Online</p>
                 <div>{this.renderChats()}</div>
                     <form>
-                        <textarea onChange={this.handleChange} name="chatbox"></textarea>
-                        <button className="submit-button" onClick={this.handleSubmit}>SUBMIT</button>
+                        <textarea onKeyDown={this.enterChatMessage} name="chatbox" placeholder="Type a message and hit enter"></textarea>
                     </form>
             </div>
         )

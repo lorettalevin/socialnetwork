@@ -6,7 +6,7 @@ export default function Logo(props) {
     return (
         <div className="logo-container">
             <img className="logo" src="./images/city.jpg"/>
-            {/*<Link to="/bothauth"><button id="home-button">sign up/sign in</button></Link>*/}
+            <Link to="/bothauth"><button id="home-button">sign up/sign in</button></Link>
         </div>
     )
 }

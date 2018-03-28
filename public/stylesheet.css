@@ -1,5 +1,6 @@
-* {
-    background-color: rgb(255, 181, 78);
+body {
+    margin: 0;
+    background-color: rgb(255, 181, 78)
 }
 
 input {
@@ -10,22 +11,25 @@ input {
     height: 25px;
     background-color: #898989;
     color: black;
+    font-family: 'Cutive Mono';
 }
 
 form {
     display: flex;
     flex-direction: column;
-
+    font-family: 'Cutive Mono';
 }
 
 textarea {
     width: 300px;
     height: 300px;
+    font-family: 'Cutive Mono';
 }
 
 ::placeholder {
     text-align: center;
     color: black;
+    font-family: 'Cutive Mono';
 }
 
 .submit-button {
@@ -36,6 +40,7 @@ textarea {
     font-size: 20px;
     border-radius: 10px;
     background-color: #898989;
+    font-family: 'Cutive Mono';
 }
 
 .bothauth-section {
@@ -81,7 +86,7 @@ textarea {
     text-decoration: none;
 } */
 
-.welcome-user {
+.headline {
     font-family: 'Pinyon Script';
     font-size: 50px;
     color: black;
@@ -90,22 +95,60 @@ textarea {
 }
 
 #home-button {
-    width: 150px;
+    width: 160px;
     height: 50px;
     position: absolute;
     top: 30px;
     right: 30px;
     font-family: 'Pinyon Script', cursive;
-    font-size: 22px;
+    font-size: 25px;
     background-color: #898989;
 }
 
 #network-content {
-    font-family: 'Amatica SC';
-    font-size: 30px;
+    font-family: 'Cutive Mono';
+    font-size: 27px;
+    margin: 30px;
+    font-weight: bold;
 }
 
 .profile-pic-uploader {
     display: flex;
     justify-content: center;
+}
+
+.profile-pic {
+    width: 300px;
+    height: 300px;
+}
+
+/* NAV BAR SECTION */
+
+nav {
+    font-family: 'Cutive Mono', cursive;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+nav li a:hover {
+    background-color: #111;
 }

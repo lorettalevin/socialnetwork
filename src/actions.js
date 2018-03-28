@@ -58,3 +58,10 @@ export function chats(messages) {
         messages
     };
 }
+
+export function singleChat(singleChatMessage) {
+    return {
+        type: 'SINGLE_CHAT_MESSAGE',
+        singleChatMessage
+    };
+}

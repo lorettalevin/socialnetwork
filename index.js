@@ -15,7 +15,6 @@ const s3 = require('./config/s3.js');
 const {s3Url} = require("./config/config.json");
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { origins: 'localhost:8080' });
-// const io = require('socket.io')(server);
 
 app.use(express.static(__dirname + "/public"));
 
@@ -96,10 +95,7 @@ function hashPassword(plainTextPassword) {
 
 // STARTING SOCKET.IO
 
-let onlineUsers = [], messages = [{
-    id: 1,
-    message: "Cute Bosnians"
-}];
+let onlineUsers = [], messages = [];
 
 const getOnlineUsers = () => {
     let ids = onlineUsers.map(user => user.userId); //map returns a new array & iterates over each item in an array like the forEach (except forEach doesn't return a new array)
@@ -138,6 +134,15 @@ io.on('connection', function(socket) {
     });
 
     socket.emit('chats', messages);
+
+    socket.on('chatMessage', message => {
+        db.getUserInfo(userId).then(results => {
+            const { first, last, email, url } = results;
+            const singleChatMessage = { message, first, last, email, url };
+            messages.push(singleChatMessage);
+            io.sockets.emit('singleChat', singleChatMessage);
+        });
+    });
 });
 
 // END OF SOCKET.IO
@@ -294,18 +299,23 @@ app.post(`/terminatefriendship/:recipient_id`, (req, res) => {
 });
 
 app.get('/getfriends', (req, res) => {
-    db.getFriends(req.session.id).then(results => {
-        if (results.url) {
-            results.url = s3Url + results.url;
-        }
+    db.getFriends(req.session.id).then(friends => {
+        friends.forEach(friend => {
+            if (friend.url) {
+                friend.url = s3Url + friend.url;
+            }
+        })
         res.json({
             success: true,
-            friends: results
+            friends
         });
     });
 });
 
-
+app.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect("/welcome");
+});
 
 
 
@@ -327,7 +337,10 @@ app.get('/', (req, res) => {
     }
 });
 
-app.get('*', function(req, res) {   //catch all route --> you can tell by the star
+app.get('*', function(req, res) { //catch all route --> you can tell by the star
+    if (!req.session.id) {
+        return res.redirect('/welcome');
+    }
     res.sendFile(__dirname + '/index.html');
 });
 

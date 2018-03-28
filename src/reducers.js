@@ -57,6 +57,12 @@ export default function(state = {}, action) {
         });
     }
 
+    if(action.type === 'SINGLE_CHAT_MESSAGE') {
+        state = Object.assign({}, state, {
+            chats: state.chats.concat(action.singleChatMessage)
+        });
+    }
+
     return state; //to check if you successfully updated the state, console log "state" right before return
 }
 

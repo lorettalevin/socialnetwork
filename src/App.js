@@ -5,7 +5,7 @@ import axios from './axios';
 import OtherProfile from './otherprofile'
 import OnlineFriends from './onlinefriends'
 import Logo from './logo'
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Link} from 'react-router-dom'
 import Friends from './friends'
 import Chat from './chat'
 import Profile from './profile'
@@ -18,7 +18,7 @@ export default class App extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: './images/newdefault.png',
+            url: '/images/newdefault.png',
             showUploader: false,
             showBio: false
         };
@@ -63,6 +63,15 @@ export default class App extends React.Component {
         return (<div>
             <BrowserRouter>
                 <div>
+                    <nav>
+                        <ul>
+                          <li><Link to="/">Profile</Link></li>
+                          <li><Link to="/friends">Friends</Link></li>
+                          <li><Link to="/onlinefriends">Online Friends</Link></li>
+                          <li><Link to="/chat">Chat</Link></li>
+                          <li><a href="/logout">Log Out</a></li>
+                        </ul>
+                    </nav>
                     <Route
                         path="/"
                         exact

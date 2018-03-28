@@ -10,7 +10,7 @@ export default class Bothauth extends React.Component {
         return (
             <div>
                 <div id="content-container">
-                    <p id="network-content">Are you new around here? Did you get sick of paying $3500 for a shoebox in New York City? Did you trade the hipster cafes of Williamsburg for those in trendy Kreuzberg? Join our online community of expats from New York who have recently moved to Berlin!</p>
+                    <p id="network-content">Are you new around here? Did you get sick of paying $3500 for a shoebox in New York City? Did you trade the hipster cafes of Williamsburg for trendy Kreuzberg? Join our online community of expats from New York who have recently moved to Berlin!</p>
                 </div>
                 <div id="bothauth-wrapper">
                     <div className="bothauth-section">
