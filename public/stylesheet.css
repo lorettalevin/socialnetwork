@@ -1,5 +1,5 @@
 * {
-    background-color: rgb(179, 236, 229);
+    background-color: rgb(255, 181, 78);
 }
 
 input {
@@ -8,93 +8,104 @@ input {
     font-size: 20px;
     width: 350px;
     height: 25px;
-    background-color: rgba(118, 189, 181, 0.64);
+    background-color: #898989;
+    color: black;
 }
 
 form {
     display: flex;
     flex-direction: column;
+
 }
 
 textarea {
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
 }
 
 ::placeholder {
     text-align: center;
+    color: black;
 }
 
 .submit-button {
-    color: #75757D;
+    color: black;
     width: 125px;
     height: 45px;
     margin-bottom: 10px;
     font-size: 20px;
     border-radius: 10px;
-    background-color: rgba(118, 189, 181, 0.64);
+    background-color: #898989;
 }
 
-#registration-submit, #login-submit {
+.bothauth-section {
+    text-align: center;
+}
+
+#bothauth-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.bothauth-text {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 85px;
+    color: black;
+}
+
+#content-container {
     display: flex;
     justify-content: center;
-}
-
-#registration-container, #login-container {
-    display: flex;
-}
-
-#registration-section, #login-section {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    /* align-items: center; */
-    /* align-content: center; */
-}
-
-/* #login-section {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-} */
-#bothauth-section {
-    display: flex;
-    flex-direction: row;
-}
-
-.bothauth {
-    font-family: arial;
-    font-size: 20px;
-    color: teal;
 }
 
 .logo-container {
     display: flex;
     flex-direction: row;
-    order: -1;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo {
-    width: 550px;
-    height: 550px;
+    height: 800px;
+    width: 100%;
+    display: flex;
+    text-align: center;
 }
 
-.link {
+/* .link {
     color: blue;
     font-size: 15px;
     justify-content: center;
     text-align: center;
     font-family: arial;
     text-decoration: none;
-}
+} */
 
-#welcome-user {
-    font-family: 'Monoton', cursive;
+.welcome-user {
+    font-family: 'Pinyon Script';
     font-size: 50px;
-    color: teal;
+    color: black;
+    display: flex;
+    justify-content: center;
 }
 
-.wtf {
-    border: 10px solid red;
+#home-button {
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-family: 'Pinyon Script', cursive;
+    font-size: 22px;
+    background-color: #898989;
+}
+
+#network-content {
+    font-family: 'Amatica SC';
+    font-size: 30px;
+}
+
+.profile-pic-uploader {
+    display: flex;
+    justify-content: center;
 }

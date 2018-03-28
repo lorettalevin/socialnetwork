@@ -2,15 +2,13 @@
 
 import React from 'react';
 import axios from './axios';
-import ProfilePic from './profilepic'
-import Profile from './profile'
-import ProfilePicUpload from './profilepicupload'
-import BioUpload from './bioupload'
 import OtherProfile from './otherprofile'
 import OnlineFriends from './onlinefriends'
 import Logo from './logo'
 import {BrowserRouter, Route} from 'react-router-dom'
-import Friends from "./friends"
+import Friends from './friends'
+import Chat from './chat'
+import Profile from './profile'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -20,7 +18,7 @@ export default class App extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: './images/default.png',
+            url: './images/newdefault.png',
             showUploader: false,
             showBio: false
         };
@@ -61,26 +59,13 @@ export default class App extends React.Component {
         this.setState({bio})
     }
     render() {
-        const {first, last, url, email, bio, showUploader} = this.state
+        const {first, last, url, email, bio, showUploader, showBio} = this.state
         return (<div>
-            <Logo/>
-            <p id="welcome-user">Welcome {first} {last}!</p>
-            <ProfilePic
-                first={first}
-                last={last}
-                url={url}
-                toggleUploader={this.toggleUploader}
-            />
-        { showUploader && <ProfilePicUpload
-                setImage={this.setImage}
-            /> }
-        { this.state.showBio && <BioUpload
-                setBio={this.setBio}
-            /> }
             <BrowserRouter>
                 <div>
                     <Route
                         path="/"
+                        exact
                         render={() => (
                             <Profile
                                 first={first}
@@ -89,12 +74,17 @@ export default class App extends React.Component {
                                 bio={bio}
                                 setBio={this.setBio}
                                 toggleBio={this.toggleBio}
+                                setImage={this.setImage}
+                                showBio={showBio}
+                                toggleUploader={this.toggleUploader}
+                                showUploader={showUploader}
                             />
                         )}
                     />
                     <Route exact path="/user/:id" component={OtherProfile} />
                     <Route exact path="/friends" component={Friends} />
                     <Route exact path="/onlinefriends" component={OnlineFriends} />
+                    <Route exact path="/chat" component={Chat} />
                 </div>
             </BrowserRouter>
         </div>)

@@ -29,8 +29,6 @@ export function terminateFriends(recipient_id) {
     });
 }
 
-
-
 //SOCKET IO
 
 export function onlineUsers(users) {
@@ -40,10 +38,10 @@ export function onlineUsers(users) {
     };
 }
 
-export function userJoined(userId) {
+export function userJoined(user) {
     return {
         type: 'USER_JOINED',
-        userId
+        user
     };
 }
 
@@ -51,5 +49,12 @@ export function userLeft(userId) {
     return {
         type: 'USER_LEFT',
         userId
+    };
+}
+
+export function chats(messages) {
+    return {
+        type: 'CHATS_MESSAGES',
+        messages
     };
 }

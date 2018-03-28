@@ -10,7 +10,7 @@ export default class OtherProfile extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: './images/default.png',
+            url: './images/newdefault.png',
             bio: 'Default Bio'
         };
         this.updateStatus = this.updateStatus.bind(this)

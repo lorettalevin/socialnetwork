@@ -96,7 +96,10 @@ function hashPassword(plainTextPassword) {
 
 // STARTING SOCKET.IO
 
-let onlineUsers = [], messages = [];
+let onlineUsers = [], messages = [{
+    id: 1,
+    message: "Cute Bosnians"
+}];
 
 const getOnlineUsers = () => {
     let ids = onlineUsers.map(user => user.userId); //map returns a new array & iterates over each item in an array like the forEach (except forEach doesn't return a new array)
@@ -116,7 +119,7 @@ io.on('connection', function(socket) {
         onlineUsers = onlineUsers.filter(user => {
             return user.userId != userId;
         });
-        socket.broadcast.emit('userLeft', userId);
+        socket.broadcast.emit('userLeft', userId); //emit always takes 2 arguments
     });
 
     const userId = socket.request.session.id;
@@ -129,10 +132,13 @@ io.on('connection', function(socket) {
     getOnlineUsers().then(results => {
         socket.emit('onlineUsers', results.rows);
     });
+
+    db.newOnlineUser(userId).then(results => {
+        socket.broadcast.emit('userJoined', results);
+    });
+
+    socket.emit('chats', messages);
 });
-
-
-
 
 // END OF SOCKET.IO
 
