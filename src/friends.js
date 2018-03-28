@@ -23,25 +23,32 @@ class Friends extends React.Component {
         }
         const pendingFriendsList = this.props.pendingFriends.map((pending, id) => (
             <div key={id}>
-                <p>{pending.first} {pending.last}</p>
-                <Link to={`/user/${pending.id}`}><img src={pending.url || '/images/newdefault.png'} className="profile-pic" alt="Profile Pic"/></Link>
+                <p className="profile-pic-uploader">{pending.first} {pending.last}</p>
+                <Link to={`/user/${pending.id}`}><img src={pending.url || '/images/newdefault.png'} className="pending-friend-pic"  alt="Profile Pic"/></Link>
                 <button className="friend-button" onClick={() => {this.props.dispatch(acceptFriends(pending.id))}}>Accept</button>
             </div>
         ))
         const acceptedFriendsList = this.props.acceptedFriends.map((accepted, id) => (
             <div key={id}>
-                <p>{accepted.first} {accepted.last}</p>
-                <Link to={`/user/${accepted.id}`}><img src={accepted.url || './images/newdefault.png'} className="profile-pic" alt="Profile Pic"/></Link>
+                <p className="profile-pic-uploader">{accepted.first} {accepted.last}</p>
+                <Link to={`/user/${accepted.id}`}><img src={accepted.url || './images/newdefault.png'} className="pending-friend-pic" alt="Profile Pic"/></Link>
                 <button className="friend-button" onClick={() => {this.props.dispatch(terminateFriends(accepted.id))}}>Unfriend</button>
             </div>
         ))
 
-        return (<div>
-            <div>
+        return (
+            <div id="friends-page">
                 <p className="headline">Friends</p>
-                <p>Pending Friends: </p>{pendingFriendsList}
-                <p>Accepted Friends: </p>{acceptedFriendsList}
-            </div>
+                <div id="friends-container">
+                    <p className="profile-pic-uploader">Pending Friends: </p>
+                    <div className="friends-list">
+                        {pendingFriendsList}
+                    </div>
+                    <p className="profile-pic-uploader">Accepted Friends: </p>
+                    <div className="friends-list">
+                        {acceptedFriendsList}
+                    </div>
+                </div>
         </div>)
     }
 }

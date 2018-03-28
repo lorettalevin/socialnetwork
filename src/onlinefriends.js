@@ -15,7 +15,7 @@ class OnlineFriends extends React.Component {
         return this.props.onlineUsers.map(user => {
             return (
                 <div key={user.id}>
-                    <p id="online-friends">{user.first} {user.last}</p>
+                    <p className="online-friends">{user.first} {user.last}</p>
                 </div>
             )
         })

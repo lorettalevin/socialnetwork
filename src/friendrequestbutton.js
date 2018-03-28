@@ -5,7 +5,7 @@ export default class FriendRequestButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonText: "Make Friend Request",
+            buttonText: "Friend",
             status: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -16,20 +16,20 @@ export default class FriendRequestButton extends React.Component {
         console.log("recip", recipient_id, "sender", sender_id);
         let text;
         if (status == 0) {
-            text = "Make Friend Request"
+            text = "Friend"
         } else if (status == 1) {  //need to check sender_id
-            text = "Cancel Request"
+            text = "Reject"
             if (sender_id == this.props.match.params.id) {
-                text = "Accept Request"
+                text = "Accept"
             }
         } else if (status == 2) {
             text = "Unfriend"
         } else if (status == 3) {
-            text = "Make Friend Request"
+            text = "Friend"
         } else if (status == 4) {
-            text = "Make Friend Request"
+            text = "Friend"
         } else if (status == 5) {
-            text = "Make Friend Request"
+            text = "Friend"
         }
         return text;
     }

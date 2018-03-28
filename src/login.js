@@ -39,7 +39,7 @@ export default class Login extends React.Component {
     render() {
         const {email, password} = this.state
         return (<div>
-            {this.state.error && <div>{this.state.errorMessage}</div>}
+            {this.state.error && <div className="error-message">{this.state.errorMessage}</div>}
             <div>
                 <form>
                     <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>

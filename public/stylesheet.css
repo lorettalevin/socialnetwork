@@ -22,8 +22,15 @@ form {
 
 textarea {
     width: 300px;
-    height: 300px;
+    height: 240px;
     font-family: 'Cutive Mono';
+    font-size: 25px;
+    background-color: white;
+}
+
+img {
+    width: 250px;
+    height: 250px;
 }
 
 ::placeholder {
@@ -32,7 +39,7 @@ textarea {
     font-family: 'Cutive Mono';
 }
 
-.submit-button {
+button {
     color: black;
     width: 125px;
     height: 45px;
@@ -41,6 +48,10 @@ textarea {
     border-radius: 10px;
     background-color: #898989;
     font-family: 'Cutive Mono';
+}
+
+button:hover {
+    background-color: lightgray;
 }
 
 .bothauth-section {
@@ -77,15 +88,6 @@ textarea {
     text-align: center;
 }
 
-/* .link {
-    color: blue;
-    font-size: 15px;
-    justify-content: center;
-    text-align: center;
-    font-family: arial;
-    text-decoration: none;
-} */
-
 .headline {
     font-family: 'Pinyon Script';
     font-size: 50px;
@@ -112,14 +114,102 @@ textarea {
     font-weight: bold;
 }
 
-.profile-pic-uploader {
+.tell-more:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.profile-pic-upload-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+}
+
+.profile-pic-uploader {
+    width: 280px;
+    font-family: "Cutive Mono";
+    font-size: 22px;
 }
 
 .profile-pic {
     width: 300px;
     height: 300px;
+}
+
+#other-profile {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.other-prof-header {
+    width: inherit;
+}
+
+.pending-friend-pic {
+    width: 150px;
+    height: 150px;
+}
+
+#profile-container {
+    margin: 100px;
+}
+
+#profile-left-container {
+    display: inline-block;
+    width: 50%;
+}
+
+#profile-right-container {
+    display: inline-block;
+    width: 50%;
+}
+
+.error-message {
+    font-family: 'Cutive Mono', cursive;
+    font-size: 20px;
+    color: red;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#chatbox {
+    font-family: 'Cutive Mono';
+    font-size: 20px;
+    background-color: #898989;
+    width: 600px;
+    height: 100px;
+    color: lightgray;
+}
+
+#chat-messages {
+    font-family: 'Cutive Mono';
+    font-size: 20px;
+    width: 600px;
+    height: 400px;
+    box-sizing: border-box;
+    padding: 0 24px;
+    background-color: lightgray;
+}
+
+.online-friends {
+    display: flex;
+    justify-content: center;
+    font-family: "Cutive Mono";
+    font-size: 25px;
+}
+
+.friends-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#friends-page {
+    margin: 0 50px;
 }
 
 /* NAV BAR SECTION */

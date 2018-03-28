@@ -33,10 +33,12 @@ class Chat extends React.Component {
         return (
             <div>
                 <p className="headline">Chat Online</p>
-                <div>{this.renderChats()}</div>
+                <div id="chat-container">
                     <form>
-                        <textarea onKeyDown={this.enterChatMessage} name="chatbox" placeholder="Type a message and hit enter"></textarea>
+                        <textarea onKeyDown={this.enterChatMessage} id="chatbox" placeholder="Type a message and hit enter"></textarea>
                     </form>
+                    <div id="chat-messages">{this.renderChats()}</div>
+                </div>
             </div>
         )
     }

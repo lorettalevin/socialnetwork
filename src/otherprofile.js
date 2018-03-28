@@ -47,10 +47,9 @@ export default class OtherProfile extends React.Component {
     render(){
         const {id, first, last, email, url, bio, recipient_id, sender_id, status} = this.state
         return(
-            <div>
-                <p>Hello {first} {last} at {email}!</p>
+            <div id="other-profile">
+                <p className="profile-pic-uploader other-prof-header">Hello {first} {last} at {email}!</p>
                 <img src={url} alt="Profile Picture"/>
-                <p>{bio}</p>
                 <FriendRequestButton
                     recipient_id={recipient_id}
                     sender_id={sender_id}

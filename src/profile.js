@@ -13,23 +13,27 @@ export default class Profile extends React.Component {
         return (
             <div>
                 <p className="headline">Welcome to your profile, {first} {last}!</p>
-                <ProfilePic
-                    first={first}
-                    last={last}
-                    url={url}
-                    toggleUploader={toggleUploader}
-                />
-                { showUploader && <ProfilePicUpload
-                    setImage={setImage}
-                /> }
-                <p className="profile-pic-uploader">Click to upload a new Profile Picture!</p>
-                <div>
-                    <p onClick={toggleBio}>
-                        {bio || "Click to tell us more about yourself!"}
-                    </p>
-                    { showBio && <BioUpload
-                        setBio={setBio}
-                    /> }
+                <div id="profile-container">
+                    <div id="profile-left-container">
+                        <ProfilePic
+                            first={first}
+                            last={last}
+                            url={url}
+                            toggleUploader={toggleUploader}
+                        />
+                        { showUploader && <ProfilePicUpload
+                            setImage={setImage}
+                        /> }
+                        <p className="profile-pic-uploader">Click to upload a new Profile Picture!</p>
+                    </div>
+                    <div id="profile-right-container">
+                        { showBio && <BioUpload
+                            setBio={setBio}
+                        /> }
+                        <p className="profile-pic-uploader tell-more" onClick={toggleBio}>
+                            {bio || "Click to tell us more about yourself!"}
+                        </p>
+                    </div>
                 </div>
             </div>
         )
