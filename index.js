@@ -16,7 +16,7 @@ const {s3Url} = require("./config/config.json");
 const server = require('http').Server(app);
 // const io = require('socket.io')(server, { origins: 'localhost:8080' });
 const io = require("socket.io")(server); //need to change this to be live on the internet.
-io.origins(["localhost:8080", "welovethe90ssocialnetwork.herokuapp.com:*"]);
+io.origins(["localhost:8080", "lorettas-socialnetwork.herokuapp.com:*"]);
 
 app.use(express.static(__dirname + "/public"));
 
