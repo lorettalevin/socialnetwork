@@ -14,7 +14,9 @@ const path = require('path');
 const s3 = require('./config/s3.js');
 const {s3Url} = require("./config/config.json");
 const server = require('http').Server(app);
-const io = require('socket.io')(server, { origins: 'localhost:8080' });
+// const io = require('socket.io')(server, { origins: 'localhost:8080' });
+const io = require("socket.io")(server); //need to change this to be live on the internet.
+io.origins(["localhost:8080", "welovethe90ssocialnetwork.herokuapp.com:*"]);
 
 app.use(express.static(__dirname + "/public"));
 
@@ -344,6 +346,8 @@ app.get('*', function(req, res) { //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });
 
-server.listen(8080, () => {
-    console.log("I'm listening.");
-});
+// server.listen(8080, () => {
+//     console.log("I'm listening.");
+// });
+
+server.listen(process.env.PORT || 8080);
