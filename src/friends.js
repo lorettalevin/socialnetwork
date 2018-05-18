@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import {getFriends, acceptFriends, terminateFriends} from './actions';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';

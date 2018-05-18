@@ -65,17 +65,3 @@ export default function(state = {}, action) {
 
     return state; //to check if you successfully updated the state, console log "state" right before return
 }
-
-
-
-
-
-
-
-
-// if(action.type === 'CHAT_MESSAGE') {
-//     state = Object.assign({}, state, {
-//         chatMessages: [...state.chatMessages, action.singleChatMessage]
-//     });
-// }
-//
