@@ -16,7 +16,7 @@ Profile pic upload & updating bio:
 
 Live update of online users:
 
-<img src="public/profile.gif">
+<img src="public/onlineusers.gif">
 
 
 Friend requests:
