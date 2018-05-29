@@ -1,8 +1,17 @@
 //SERVER SIDE
 
 const spicedPg = require('spiced-pg');
-const {dbUser, dbPass} = require('./config/secrets.json');
-const db = spicedPg(`postgres:${dbUser}:${dbPass}@localhost:5432/socialnetwork`);
+let db;
+// const {dbUser, dbPass} = require('./config/secrets.json');
+// const db = spicedPg(`postgres:${dbUser}:${dbPass}@localhost:5432/socialnetwork`);
+
+if (process.env.NODE_ENV !== 'production') {
+    const {dbUser, dbPass} = require('./config/secrets.json');
+    db = spicedPg(`postgres:${dbUser}:${dbPass}@localhost:5432/socialnetwork`);
+} else {
+    db = spicedPg(process.env.DATABASE_URL);
+}
+
 
 function insertUserInfo(first, last, email, password) {
     return new Promise((resolve, reject) => {
